@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TaxService } from '../../services/tax.service';
 import { ITax } from '../../types/tax.type';
+import { Store } from '@ngrx/store';
+import { updateTax } from '../../store/tax.actions';
 
 @Component({
   selector: 'app-edit-tax',
@@ -14,7 +16,7 @@ export class EditTaxComponent implements OnInit {
   taxId!: number;
   tax!: ITax
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private taxService: TaxService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private taxService: TaxService , private store :Store) {
 
     route.params.subscribe({
       next: (out) => {
@@ -41,8 +43,10 @@ export class EditTaxComponent implements OnInit {
 
   submitForm() {
     if (this.taxForm.valid) {
-      console.log(this.taxForm.value);
+      let tax = this.taxForm.value
+      this.store.dispatch(updateTax({Tax:tax , id:this.taxId}))
     }
+
   }
 
   getTaxById(id: number) {

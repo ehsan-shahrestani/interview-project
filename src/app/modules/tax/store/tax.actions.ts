@@ -25,6 +25,7 @@ export const updateTax = createAction(
     `${prefix} Update Tax`,
     props<{
         Tax: ITax;
+        id:number
     }>()
 );
 
