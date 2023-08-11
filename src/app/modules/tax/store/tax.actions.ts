@@ -12,7 +12,7 @@ export const getTaxSuccess = createAction( `${getTax.type} Success`,
 export const createTax = createAction(
     `${prefix} Create Tax`,
     props<{
-        Tax: Partial<ITax>;
+        Tax: ITax;
     }>()
 );
 

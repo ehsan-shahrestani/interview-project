@@ -5,7 +5,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap } from 'rxjs/operators';
 
 import { TaxService } from '../services/tax.service';
-import { getTax, getTaxSuccess } from './tax.actions';
+import { createTax, createTaxuccess, getTax, getTaxSuccess } from './tax.actions';
 import { ITax } from '../types/tax.type';
 
 @Injectable()
@@ -21,13 +21,13 @@ export class TaxEffects {
         )
     );
 
-    // createBook$ = createEffect(() =>
-    //     this.actions$.pipe(
-    //         ofType(fromBooks.createBook),
-    //         switchMap(({book}) => this.bookService.create(book)),
-    //         map((book: IBook) => fromBooks.createBookSuccess({book}))
-    //     )
-    // );
+    createTax$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(createTax),
+            switchMap(({Tax}) => this.bookService.createTax(Tax)),
+            map((Tax: ITax) => createTaxuccess({Tax}))
+        )
+    );
 
     // updateBook$ = createEffect(() =>
     //     this.actions$.pipe(

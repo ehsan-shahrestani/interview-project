@@ -1,5 +1,5 @@
 export interface ITax {
-    id: number
+    id?: number
     active: boolean,
     division_id: number,
     division_name: string,

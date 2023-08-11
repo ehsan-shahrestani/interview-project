@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { createTax } from '../../store/tax.actions';
 
 @Component({
   selector: 'app-add-tax',
@@ -9,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AddTaxComponent {
   taxForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private store: Store) {
 
     this.taxForm = this.fb.group({
       active: [true],
@@ -18,14 +20,15 @@ export class AddTaxComponent {
       tax_id: ['', Validators.required],
       tax_description: ['', Validators.required],
     });
-    
+
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   submitForm() {
     if (this.taxForm.valid) {
-      console.log(this.taxForm.value);
+      this.store.dispatch(createTax(this.taxForm.value))
     }
+
   }
 }
