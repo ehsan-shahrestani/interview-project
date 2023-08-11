@@ -42,7 +42,7 @@ export class TaxEffects {
             map((Tax: ITax) => createTaxuccess({ Tax }))
         )
     );
-    updateBook$ = createEffect(() =>
+    updateTax$ = createEffect(() =>
         this.actions$.pipe(
             ofType(updateTax),
             switchMap(({Tax, id}) => this.taxService.updateTax(id , Tax)),
