@@ -1,0 +1,25 @@
+<div class="p-6">
+    <form [formGroup]="taxForm" (ngSubmit)="submitForm()">
+        <div class="p-inputgroup mb-4">
+            <input pInputText type="text" formControlName="division_id" placeholder="Division ID" />
+        </div>
+        <div class="p-inputgroup mb-4">
+            <input pInputText type="text" formControlName="division_name" placeholder="Division Name" />
+        </div>
+        <div class="p-inputgroup mb-4">
+            <input pInputText type="text" formControlName="tax_id" placeholder="Tax ID" />
+        </div>
+        <div class="p-inputgroup mb-4">
+            <input pInputText type="text" formControlName="tax_description" placeholder="Tax Description" />
+        </div>
+        <div class="flex items-center">
+            <p-checkbox [binary]="true" [formControlName]="'active'" class="mr-2"></p-checkbox>
+            <label>Active</label>
+        </div>
+        <div class="space-x-2">
+            <button pButton type="submit" label="Submit" class="mt-4 p-button-outlined"></button>
+            <button pButton type="button" routerLink="/tax" label="Cancel" class="mt-4 p-button-danger"></button>
+        </div>
+
+    </form>
+</div>
