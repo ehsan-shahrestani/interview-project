@@ -5,7 +5,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, tap } from 'rxjs/operators';
 
 import { TaxService } from '../services/tax.service';
-import { createTax, createTaxuccess, getTax, getTaxSuccess, updateTax, updateTaxuccess } from './tax.actions';
+import { createTax, createTaxuccess, deleteTax, deleteTaxuccess, getTax, getTaxSuccess, updateTax, updateTaxuccess } from './tax.actions';
 import { ITax } from '../types/tax.type';
 
 @Injectable()
@@ -21,21 +21,13 @@ export class TaxEffects {
         )
     );
 
-    // createTax$ = createEffect(() =>
-    //     this.actions$.pipe(
-    //         ofType(createTax),
-    //         switchMap(({ Tax }) => this.bookService.createTax(Tax)),
-    //         map((Tax: ITax) => createTaxuccess({ Tax }))
-    //     )
-    // );
-
     createTax$ = createEffect(() =>
         this.actions$.pipe(
             ofType(createTax),
             tap(action => {
                 console.log('Received createTax action:', action);
             }),
-            switchMap(( {Tax} ) => {
+            switchMap(({ Tax }) => {
                 return this.taxService.createTax(Tax);
             }),
 
@@ -45,16 +37,18 @@ export class TaxEffects {
     updateTax$ = createEffect(() =>
         this.actions$.pipe(
             ofType(updateTax),
-            switchMap(({Tax, id}) => this.taxService.updateTax(id , Tax)),
-            map((Tax: ITax) => updateTaxuccess({Tax}))
+            switchMap(({ Tax, id }) => this.taxService.updateTax(id, Tax)),
+            map((Tax: ITax) => updateTaxuccess({ Tax }))
         )
     );
 
-    // deleteBook$ = createEffect(() =>
+    // deleteTax$ = createEffect(() =>
     //     this.actions$.pipe(
-    //         ofType(deleteBook),
-    //         switchMap(({book}) => this.bookService.deleteTax(book)),
-    //         map((Tax: ITax) => deleteTaxuccess({Tax}))
+    //         ofType(deleteTax),
+    //         switchMap(({Tax}) => {
+    //              return this.taxService.deleteTax(Tax)
+    //           }),
+    //         map((Tax: ITax) => deleteTaxuccess({ Tax }))
     //     )
     // );
 }

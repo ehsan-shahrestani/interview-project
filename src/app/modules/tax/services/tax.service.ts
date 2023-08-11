@@ -29,8 +29,8 @@ export class TaxService {
 
   }
 
-  deleteTax(id: number) {
-    return this.http.delete(this.baseUrl + id)
+  deleteTax(tax: ITax) {
+    return this.http.delete(this.baseUrl + tax.id)
 
   }
 

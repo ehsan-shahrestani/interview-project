@@ -3,10 +3,10 @@
 <p-toolbar>
     <div class="p-toolbar-group-start">
         <button pButton label="New Tax" routerLink="addtax" icon="pi pi-plus" class="mr-2"></button>
- 
+
     </div>
     <div class="p-toolbar-group-end">
-       
+
     </div>
 </p-toolbar>
 
@@ -30,8 +30,9 @@
                 <td>{{ Tax.tax_description}}</td>
                 <td>
                     <button pButton icon="pi pi-pencil" routerLink="editTax/{{Tax.id}}"></button>
+                    <button pButton icon="pi pi-trash" (click)="deleteTax(Tax)" class="p-button-danger p-button-outlined"></button>
                 </td>
-    
+
             </tr>
         </ng-template>
     </p-table>

@@ -4,7 +4,7 @@ import { TaxService } from './services/tax.service';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { selectTaxList } from './store/tax.selectors';
-import { getTax } from './store/tax.actions';
+import { deleteTax, getTax } from './store/tax.actions';
 
 @Component({
   selector: 'app-tax',
@@ -12,6 +12,7 @@ import { getTax } from './store/tax.actions';
   styleUrls: ['./tax.component.scss']
 })
 export class TaxComponent implements OnInit {
+
   taxList: ITax[] = [];
   fetchTaxLoading = false;
   taxList$: Observable<ITax[]> = of([]);
@@ -38,5 +39,8 @@ export class TaxComponent implements OnInit {
       }
     })
   }
-
+  deleteTax(Tax: ITax) {
+    //  Todo delete tax
+    this.store.dispatch(deleteTax({Tax}))
+  }
 }
