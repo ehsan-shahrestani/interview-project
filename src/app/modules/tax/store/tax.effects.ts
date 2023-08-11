@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { TaxService } from '../services/tax.service';
 import { createTax, createTaxuccess, getTax, getTaxSuccess } from './tax.actions';
@@ -10,25 +10,38 @@ import { ITax } from '../types/tax.type';
 
 @Injectable()
 export class TaxEffects {
-    constructor(private readonly actions$: Actions, private readonly bookService: TaxService) {
+    constructor(private readonly actions$: Actions, private readonly taxService: TaxService) {
     }
 
-    getBooks$ = createEffect(() => 
+    getBooks$ = createEffect(() =>
         this.actions$.pipe(
             ofType(getTax),
-            switchMap(() => this.bookService.getAllTaxs()),
+            switchMap(() => this.taxService.getAllTaxs()),
             map((response: { results: ITax[] }) => getTaxSuccess({ taxs: response.results }))
         )
     );
 
+    // createTax$ = createEffect(() =>
+    //     this.actions$.pipe(
+    //         ofType(createTax),
+    //         switchMap(({ Tax }) => this.bookService.createTax(Tax)),
+    //         map((Tax: ITax) => createTaxuccess({ Tax }))
+    //     )
+    // );
+
     createTax$ = createEffect(() =>
         this.actions$.pipe(
             ofType(createTax),
-            switchMap(({Tax}) => this.bookService.createTax(Tax)),
-            map((Tax: ITax) => createTaxuccess({Tax}))
+            tap(action => {
+                console.log('Received createTax action:', action);
+            }),
+            switchMap(( {Tax} ) => {
+                return this.taxService.createTax(Tax);
+            }),
+
+            map((Tax: ITax) => createTaxuccess({ Tax }))
         )
     );
-
     // updateBook$ = createEffect(() =>
     //     this.actions$.pipe(
     //         ofType(fromBooks.updateBook),

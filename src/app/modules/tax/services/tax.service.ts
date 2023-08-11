@@ -21,8 +21,8 @@ export class TaxService {
     return this.http.get<{ results: ITax[] }>(this.baseUrl)
   }
 
-  createTax(input: ITax): Observable<ITax> {
-    return this.http.post<ITax>(this.baseUrl, input)
+  createTax(tax: ITax): Observable<ITax> {
+    return this.http.post<ITax>(this.baseUrl, tax)
   }
   updateTax(input: ITax): Observable<ITax> {
     return this.http.patch<ITax>(this.baseUrl + input.id, input)

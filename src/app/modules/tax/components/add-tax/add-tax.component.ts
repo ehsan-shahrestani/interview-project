@@ -27,7 +27,8 @@ export class AddTaxComponent {
 
   submitForm() {
     if (this.taxForm.valid) {
-      this.store.dispatch(createTax(this.taxForm.value))
+      let tax = this.taxForm.value
+      this.store.dispatch(createTax({Tax:tax}))
     }
 
   }

@@ -11,9 +11,7 @@ export const getTaxSuccess = createAction( `${getTax.type} Success`,
 
 export const createTax = createAction(
     `${prefix} Create Tax`,
-    props<{
-        Tax: ITax;
-    }>()
+    props<{Tax: ITax}>()
 );
 
 export const createTaxuccess = createAction(
