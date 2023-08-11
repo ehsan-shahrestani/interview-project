@@ -14,7 +14,7 @@ export const initialState: ITaxeState = {
 
 export const taxReducer = createReducer(
   initialState,
-  on(getTaxSuccess, (state, {Tax}) => ({...state, Tax})),
+  on(getTaxSuccess, (state, { taxs }) => ({ ...state, taxs })), // Corrected property name
 );
 const reducer = createReducer<ITaxeState>(
     initialState,
