@@ -12,7 +12,7 @@ import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class TaxEffects {
-    constructor(private readonly actions$: Actions, private readonly taxService: TaxService, private router: Router , private messageSerive : MessageService) {
+    constructor(private readonly actions$: Actions, private readonly taxService: TaxService, private router: Router, private messageSerive: MessageService) {
     }
 
     getTaxs$ = createEffect(() =>
@@ -32,11 +32,11 @@ export class TaxEffects {
 
             map((Tax: ITax) => {
                 this.messageSerive.add({
-                    detail:'Create Success',
-                    severity:'success',
-                    summary:'Create Tax Successful'
-                
-                  })
+                    detail: 'Create Success',
+                    severity: 'success',
+                    summary: 'Create Tax Successful'
+
+                })
                 this.router.navigateByUrl('/tax').then();
                 return createTaxuccess({ Tax })
             }
@@ -50,11 +50,11 @@ export class TaxEffects {
             switchMap(({ Tax, id }) => this.taxService.updateTax(id, Tax)),
             map((Tax: ITax) => {
                 this.messageSerive.add({
-                    detail:'Update Success',
-                    severity:'success',
-                    summary:'Update Selected Tax Successful'
-                
-                  })
+                    detail: 'Update Success',
+                    severity: 'success',
+                    summary: 'Update Selected Tax Successful'
+
+                })
                 this.router.navigateByUrl('/tax').then();
                 return updateTaxuccess({ Tax })
             }
@@ -73,12 +73,12 @@ export class TaxEffects {
             }),
             map((Tax: ITax) => {
 
-                  this.messageSerive.add({
-                    detail:'Delete Success',
-                    severity:'success',
-                    summary:'Delete Selected Tax Successful'
-                
-                  })
+                this.messageSerive.add({
+                    detail: 'Delete Success',
+                    severity: 'success',
+                    summary: 'Delete Selected Tax Successful'
+
+                })
                 return deleteTaxuccess({ Tax })
             })
         )
