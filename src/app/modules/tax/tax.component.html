@@ -10,30 +10,35 @@
     </div>
 </p-toolbar>
 
-<ng-container *ngIf="taxList$ | async as taxData">
+{{(isLoading$ | async)}}
 
-    <p-table [value]="taxData" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Active</th>
-                <th>Division Name</th>
-                <th>Tax Id</th>
-                <th>Tax Description</th>
-                <th>Action</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-Tax>
-            <tr>
-                <td>{{ Tax.active ? 'Yes' : 'No' }}</td>
-                <td>{{ Tax.division_name}}</td>
-                <td>{{ Tax.tax_id}}</td>
-                <td>{{ Tax.tax_description}}</td>
-                <td class="space-x-2">
-                    <button pButton icon="pi pi-pencil" class="p-button-warning p-button-outlined" routerLink="editTax/{{Tax.id}}"></button>
-                    <button pButton icon="pi pi-trash" (click)="deleteTax(Tax)" class="p-button-danger p-button-outlined"></button>
-                </td>
 
-            </tr>
-        </ng-template>
-    </p-table>
-</ng-container>
+<p-table  [rowHover]="true" [value]="(taxList$ | async) ?? []"
+    [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Row</th>
+            <th>Active</th>
+            <th>Division Name</th>
+            <th>Tax Id</th>
+            <th>Tax Description</th>
+            <th>Action</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-Tax let-i="rowIndex">
+        <tr>
+            <td>{{i + 1}}</td>
+            <td>{{ Tax.active ? 'Yes' : 'No' }}</td>
+            <td>{{ Tax.division_name}}</td>
+            <td>{{ Tax.tax_id}}</td>
+            <td>{{ Tax.tax_description}}</td>
+            <td class="space-x-2">
+                <button pButton icon="pi pi-pencil" class="p-button-warning p-button-outlined"
+                    routerLink="editTax/{{Tax.id}}"></button>
+                <button pButton icon="pi pi-trash" (click)="deleteTax(Tax)"
+                    class="p-button-danger p-button-outlined"></button>
+            </td>
+
+        </tr>
+    </ng-template>
+</p-table>

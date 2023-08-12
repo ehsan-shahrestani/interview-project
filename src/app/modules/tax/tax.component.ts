@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ITax } from './types/tax.type';
 import { TaxService } from './services/tax.service';
-import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { selectTaxList } from './store/tax.selectors';
+import { Store, select } from '@ngrx/store';
+import { Observable, filter, of } from 'rxjs';
+import { selectTaxIsLoading, selectTaxList } from './store/tax.selectors';
 import { deleteTax, getTax } from './store/tax.actions';
 import { ConfirmationService } from 'primeng/api';
+import { ITaxeState } from './store/tax.reducer';
 
 @Component({
   selector: 'app-tax',
@@ -14,38 +15,39 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class TaxComponent implements OnInit {
 
-  taxList: ITax[] = [];
+  // taxList: ITax[] = [];
   fetchTaxLoading = false;
   taxList$: Observable<ITax[]> = of([]);
+  isLoading$!: Observable<boolean>; 
 
-  constructor(private taxService: TaxService, private readonly store: Store, private confirmService : ConfirmationService) {
+  constructor(private taxService: TaxService, private readonly store: Store<{ taxState: ITaxeState }>, private confirmService : ConfirmationService) {
   }
 
   ngOnInit(): void {
     this.store.dispatch(getTax())
     this.taxList$ = this.store.select(selectTaxList)
-
+    this.isLoading$ = this.store.pipe(select(selectTaxIsLoading));
   }
 
 
-  fetchTaxList() {
-    this.fetchTaxLoading = true;
-    this.taxService.getAllTaxs().subscribe({
-      next: (out) => {
-        this.fetchTaxLoading = false;
-        this.taxList = out.results;
-      },
-      error: () => {
-        this.fetchTaxLoading = false;
-      }
-    })
-  }
+  // fetchTaxList() {
+  //   this.fetchTaxLoading = true;
+  //   this.taxService.getAllTaxs().subscribe({
+  //     next: (out) => {
+  //       this.fetchTaxLoading = false;
+  //       this.taxList = out.results;
+  //     },
+  //     error: () => {
+  //       this.fetchTaxLoading = false;
+  //     }
+  //   })
+  // }
   deleteTax(Tax: ITax) {
     this.confirmService.confirm({
       header:'Delete Tax',
       message:"Are you sure for delete Tax?",
       accept:() =>{
-        
+        this.store.dispatch(deleteTax({Tax:Tax}))
       }
     })
     //  Todo delete tax

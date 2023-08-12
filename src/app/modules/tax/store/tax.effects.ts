@@ -25,9 +25,6 @@ export class TaxEffects {
     createTax$ = createEffect(() =>
         this.actions$.pipe(
             ofType(createTax),
-            tap(action => {
-                console.log('Received createTax action:', action);
-            }),
             switchMap(({ Tax }) => {
                 return this.taxService.createTax(Tax);
             }),
@@ -54,13 +51,17 @@ export class TaxEffects {
         )
     );
 
-    // deleteTax$ = createEffect(() =>
-    //     this.actions$.pipe(
-    //         ofType(deleteTax),
-    //         switchMap(({Tax}) => {
-    //              return this.taxService.deleteTax(Tax)
-    //           }),
-    //         map((Tax: ITax) => deleteTaxuccess({ Tax }))
-    //     )
-    // );
+    deleteTax$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(deleteTax),
+            switchMap(({ Tax }) => {
+
+                // this.router.navigateByUrl('/tax').then();
+                return this.taxService.deleteTax(Tax).pipe(
+                    map(() => Tax), 
+                );
+            }),
+            map((Tax: ITax) => deleteTaxuccess({ Tax }))
+        )
+    );
 }

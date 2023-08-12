@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { SharedModule } from './shared/shared.module';
 import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 @NgModule({
@@ -23,7 +24,9 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-b
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StoreDevtoolsModule.instrument()
+
   ],
   providers: [
     ConfirmationService,

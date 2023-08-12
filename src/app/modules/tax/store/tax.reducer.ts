@@ -4,12 +4,14 @@ import { createTax, createTaxuccess, deleteTax, deleteTaxuccess, getTax, getTaxS
 
 export interface ITaxeState {
   taxs: ITax[];
-  isGeneratedList: boolean;
+  isLoading: boolean;
+
 }
 
 export const initialState: ITaxeState = {
   taxs: [],
-  isGeneratedList: false
+  isLoading: false
+
 };
 
 export const taxReducer = createReducer(
@@ -67,7 +69,7 @@ const reducer = createReducer<ITaxeState>(
         return {
             ...state,
             isLoading: false,
-            books: state.taxs.filter((b) => b.id !== Tax.id)
+            taxs: state.taxs.filter((b) => b.id !== Tax.id)
         };
     })
 );
