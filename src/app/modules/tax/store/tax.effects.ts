@@ -7,10 +7,11 @@ import { map, switchMap, tap } from 'rxjs/operators';
 import { TaxService } from '../services/tax.service';
 import { createTax, createTaxuccess, deleteTax, deleteTaxuccess, getTax, getTaxSuccess, updateTax, updateTaxuccess } from './tax.actions';
 import { ITax } from '../types/tax.type';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class TaxEffects {
-    constructor(private readonly actions$: Actions, private readonly taxService: TaxService) {
+    constructor(private readonly actions$: Actions, private readonly taxService: TaxService, private router: Router) {
     }
 
     getTaxs$ = createEffect(() =>
@@ -31,14 +32,25 @@ export class TaxEffects {
                 return this.taxService.createTax(Tax);
             }),
 
-            map((Tax: ITax) => createTaxuccess({ Tax }))
+            map((Tax: ITax) => {
+
+                this.router.navigateByUrl('/tax').then();
+                return createTaxuccess({ Tax })
+            }
+
+            )
         )
     );
     updateTax$ = createEffect(() =>
         this.actions$.pipe(
             ofType(updateTax),
             switchMap(({ Tax, id }) => this.taxService.updateTax(id, Tax)),
-            map((Tax: ITax) => updateTaxuccess({ Tax }))
+            map((Tax: ITax) => {
+                this.router.navigateByUrl('/tax').then();
+                return updateTaxuccess({ Tax })
+            }
+
+            )
         )
     );
 

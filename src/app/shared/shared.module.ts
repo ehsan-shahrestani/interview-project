@@ -5,6 +5,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -16,14 +17,16 @@ import { CheckboxModule } from 'primeng/checkbox';
     ToolbarModule,
     ButtonModule,
     InputTextModule,
-    CheckboxModule
+    CheckboxModule,
+    ConfirmDialogModule
   ],
   exports: [
     TableModule,
     ToolbarModule,
     ButtonModule,
     InputTextModule,
-    CheckboxModule
+    CheckboxModule,
+    ConfirmDialogModule
   ]
 })
 export class SharedModule { }

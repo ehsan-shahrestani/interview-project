@@ -7,6 +7,10 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { SharedModule } from './shared/shared.module';
+import {BrowserAnimationsModule, NoopAnimationsModule} from "@angular/platform-browser/animations";
+
 
 @NgModule({
   declarations: [
@@ -17,10 +21,13 @@ import { EffectsModule } from '@ngrx/effects';
     AppRoutingModule,
     HttpClientModule,
     StoreModule.forRoot({}),
-    EffectsModule.forRoot([])
-
+    EffectsModule.forRoot([]),
+    SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [
+    ConfirmationService,
+    MessageService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

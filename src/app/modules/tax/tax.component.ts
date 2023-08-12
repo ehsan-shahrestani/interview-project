@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { selectTaxList } from './store/tax.selectors';
 import { deleteTax, getTax } from './store/tax.actions';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-tax',
@@ -17,7 +18,7 @@ export class TaxComponent implements OnInit {
   fetchTaxLoading = false;
   taxList$: Observable<ITax[]> = of([]);
 
-  constructor(private taxService: TaxService, private readonly store: Store) {
+  constructor(private taxService: TaxService, private readonly store: Store, private confirmService : ConfirmationService) {
   }
 
   ngOnInit(): void {
@@ -40,6 +41,13 @@ export class TaxComponent implements OnInit {
     })
   }
   deleteTax(Tax: ITax) {
+    this.confirmService.confirm({
+      header:'Delete Tax',
+      message:"Are you sure for delete Tax?",
+      accept:() =>{
+        
+      }
+    })
     //  Todo delete tax
     this.store.dispatch(deleteTax({Tax}))
   }

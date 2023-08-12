@@ -28,8 +28,8 @@
                 <td>{{ Tax.division_name}}</td>
                 <td>{{ Tax.tax_id}}</td>
                 <td>{{ Tax.tax_description}}</td>
-                <td>
-                    <button pButton icon="pi pi-pencil" routerLink="editTax/{{Tax.id}}"></button>
+                <td class="space-x-2">
+                    <button pButton icon="pi pi-pencil" class="p-button-warning p-button-outlined" routerLink="editTax/{{Tax.id}}"></button>
                     <button pButton icon="pi pi-trash" (click)="deleteTax(Tax)" class="p-button-danger p-button-outlined"></button>
                 </td>
 
