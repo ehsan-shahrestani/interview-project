@@ -3,8 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TaxService } from '../../services/tax.service';
 import { ITax } from '../../types/tax.type';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { updateTax } from '../../store/tax.actions';
+import { Observable } from 'rxjs';
+import { selectTaxIsLoading } from '../../store/tax.selectors';
 
 @Component({
   selector: 'app-edit-tax',
@@ -15,8 +17,8 @@ export class EditTaxComponent implements OnInit {
   taxForm: FormGroup;
   taxId!: number;
   tax!: ITax
-
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private taxService: TaxService , private store :Store) {
+  isLoading$!: Observable<boolean>;
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private taxService: TaxService, private store: Store) {
 
     route.params.subscribe({
       next: (out) => {
@@ -39,12 +41,15 @@ export class EditTaxComponent implements OnInit {
 
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.isLoading$ = this.store.pipe(select(selectTaxIsLoading));
+
+  }
 
   submitForm() {
     if (this.taxForm.valid) {
       let tax = this.taxForm.value
-      this.store.dispatch(updateTax({Tax:tax , id:this.taxId}))
+      this.store.dispatch(updateTax({ Tax: tax, id: this.taxId }))
     }
 
   }

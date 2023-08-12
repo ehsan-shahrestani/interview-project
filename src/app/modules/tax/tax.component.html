@@ -11,10 +11,9 @@
     </div>
 </p-toolbar>
 
-<!-- {{(isLoading$ | async)}} -->
 
 
-<p-table  [rowHover]="true" [value]="(taxList$ | async) ?? []"
+<p-table [loading]="(isLoading$ | async) ?? false"  [rowHover]="true" [value]="(taxList$ | async) ?? []"
     [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>

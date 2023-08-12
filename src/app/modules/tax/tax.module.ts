@@ -9,8 +9,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { taxReducer } from './store/tax.reducer';
 import { TaxEffects } from './store/tax.effects';
+import { TaxReducer } from './store/tax.reducer';
 
 
 @NgModule({
@@ -24,7 +24,7 @@ import { TaxEffects } from './store/tax.effects';
     TaxRoutingModule,
     SharedModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('Tax', taxReducer),
+    StoreModule.forFeature('Tax', TaxReducer),
     EffectsModule.forFeature([TaxEffects])
   ]
 })

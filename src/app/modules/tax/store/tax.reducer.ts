@@ -14,22 +14,18 @@ export const initialState: ITaxeState = {
 
 };
 
-export const taxReducer = createReducer(
-    initialState,
-    on(getTaxSuccess, (state, { taxs }) => ({ ...state, taxs })), // Corrected property name
-);
 const reducer = createReducer<ITaxeState>(
     initialState,
     on(getTax, (state) => {
         return {
             ...state,
-            isLoading: true
+            isLoading:true,
         };
     }),
     on(getTaxSuccess, (state, { taxs }) => {
         return {
             ...state,
-            isLoading: true,
+            isLoading: false,
             taxs
         };
     }),
