@@ -13,7 +13,7 @@ export class TaxEffects {
     constructor(private readonly actions$: Actions, private readonly taxService: TaxService) {
     }
 
-    getBooks$ = createEffect(() =>
+    getTaxs$ = createEffect(() =>
         this.actions$.pipe(
             ofType(getTax),
             switchMap(() => this.taxService.getAllTaxs()),
