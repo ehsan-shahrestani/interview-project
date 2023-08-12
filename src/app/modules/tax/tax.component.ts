@@ -58,7 +58,6 @@ export class TaxComponent implements OnInit {
         this.store.dispatch(deleteTax({Tax:Tax}))
       }
     })
-    //  Todo delete tax
-    this.store.dispatch(deleteTax({Tax}))
+
   }
 }
