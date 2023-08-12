@@ -1,22 +1,22 @@
-import {createReducer, on} from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import { ITax } from '../types/tax.type';
 import { createTax, createTaxuccess, deleteTax, deleteTaxuccess, getTax, getTaxSuccess, updateTax, updateTaxuccess } from './tax.actions';
 
 export interface ITaxeState {
-  taxs: ITax[];
-  isLoading: boolean;
+    taxs: ITax[];
+    isLoading: boolean;
 
 }
 
 export const initialState: ITaxeState = {
-  taxs: [],
-  isLoading: false
+    taxs: [],
+    isLoading: false
 
 };
 
 export const taxReducer = createReducer(
-  initialState,
-  on(getTaxSuccess, (state, { taxs }) => ({ ...state, taxs })), // Corrected property name
+    initialState,
+    on(getTaxSuccess, (state, { taxs }) => ({ ...state, taxs })), // Corrected property name
 );
 const reducer = createReducer<ITaxeState>(
     initialState,
@@ -29,7 +29,7 @@ const reducer = createReducer<ITaxeState>(
     on(getTaxSuccess, (state, { taxs }) => {
         return {
             ...state,
-            isLoading: false,
+            isLoading: true,
             taxs
         };
     }),
@@ -73,3 +73,6 @@ const reducer = createReducer<ITaxeState>(
         };
     })
 );
+export function TaxReducer(state: ITaxeState | undefined, action: Action): ITaxeState {
+    return reducer(state, action);
+}

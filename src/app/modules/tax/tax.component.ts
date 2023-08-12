@@ -24,9 +24,17 @@ export class TaxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(getTax())
+    this.initDispatch()
+    this,this.initSubscription()
+  }
+
+  initSubscription(){
     this.taxList$ = this.store.select(selectTaxList)
     this.isLoading$ = this.store.pipe(select(selectTaxIsLoading));
+  }
+
+  initDispatch(){
+    this.store.dispatch(getTax())
   }
 
 
